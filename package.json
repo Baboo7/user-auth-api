@@ -9,6 +9,16 @@
   "name": "user-auth-api",
   "version": "1.0.0",
   "description": "Simple example of an auth api",
+  "keywords": [
+    "api",
+    "auth",
+    "ts.ed",
+    "bcrypt",
+    "jest",
+    "node",
+    "node.js",
+    "typescript"
+  ],
   "main": "index.js",
   "scripts": {
     "build": "rm -rf ./dist && tsc -p .",
