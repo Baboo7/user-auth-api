@@ -19,6 +19,10 @@ const USERS: IUser[] = [
 
 @Service()
 export class UserRepository {
+  public async findAll(): Promise<IUser[]> {
+    return USERS;
+  }
+
   public async findByEmail(email: string): Promise<IUser | null> {
     const user = find(USERS, (u: IUser) => u.email === email);
 

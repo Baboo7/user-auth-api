@@ -1,10 +1,18 @@
-import { BodyParams, Controller, Post, Required } from "@tsed/common";
+import {
+  BodyParams,
+  Controller,
+  Get,
+  HeaderParams,
+  Post,
+  Required
+} from "@tsed/common";
 import { Docs } from "@tsed/swagger";
 import { Unauthorized } from "ts-httpexceptions";
 
 import { UserRepository } from "../../database/repositories";
 import { createLogger } from "../../logger";
 import { IUser } from "../../types";
+import { AuthDecorator } from "../decorators/AuthDecorator";
 import { UserDto } from "../dtos/UserDto";
 import { CryptoService } from "../services/CryptoService";
 import { TokenService } from "../services/TokenService";
@@ -19,6 +27,14 @@ export class UserCtrl {
     private tokenService: TokenService,
     private userRepository: UserRepository
   ) {}
+
+  @AuthDecorator(["admin"])
+  @Get()
+  public async getUsers(
+    @Required() @HeaderParams("Authorization") authorization: string
+  ): Promise<IUser[]> {
+    return this.userRepository.findAll();
+  }
 
   @Post("/login")
   public async login(
